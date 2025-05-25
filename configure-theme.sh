@@ -1,7 +1,7 @@
 MAIN_WORKDIR=$(pwd)
 
-mkdir -p external
-cd external
+mkdir -p $MAIN_WORKDIR/external
+cd $MAIN_WORKDIR/external
 
 # install dependencies
 sudo dnf install -y gnome-tweaks gnome-themes-extra sassc gtk-murrine-engine
@@ -9,6 +9,9 @@ sudo dnf install -y gnome-tweaks gnome-themes-extra sassc gtk-murrine-engine
 # color theme
 git clone https://github.com/vinceliuice/Colloid-gtk-theme.gitcd Colloid-gtk-theme
 ./install.sh --libadwaita --theme orange --color dark --tweaks black rimless
+
+cd $MAIN_WORKDIR
+rm $MAIN_WORKDIR/external
 
 # icon theme
 wget -qO- https://git.io/papirus-icon-theme-install | env DESTDIR="$HOME/.icons" sh

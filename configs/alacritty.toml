@@ -15,4 +15,13 @@ family = "JetBrainsMono Nerd Font Mono"
 style = "Regular"
 
 [terminal]
-shell.program = "setup/fedora-setup/tmux-start.sh"
+shell.program = "/bin/bash"
+shell.args = ["-c", "${SETUP_REPO_PATH}/tmux-start.sh"]
+
+[window]
+startup_mode = "Maximized"
+
+[keyboard]
+bindings = [
+  {key = "F", mods = "Alt|Shift", action = "ToggleFullscreen"}
+]
