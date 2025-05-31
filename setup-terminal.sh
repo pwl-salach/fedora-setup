@@ -1,6 +1,14 @@
 install_if_needed() {
   pck=$1
+  exec_pck=$2
+  if [ -z "$exec_pck" ]; then
+    exec_pck=$pck
+  fi
   echo "Ensuring $pck is installed"
+  if which $exec_pck &>/dev/null; then
+    echo "$exec_pck is already installed"
+    return
+  fi
   if ! which dnf &>/dev/null; then
     echo "dnf not found, make sure to install $pck manually"
   elif ! dnf list installed $pck &>/dev/null; then
@@ -34,3 +42,7 @@ fi
 install_if_needed mc
 ln -sf $PWD/configs/modarin-orange.ini ~/.local/share/mc/skins/modarin-orange.ini
 sed -i '/^\[Midnight Commander\]/,/^\[/{s/^skin\s*=.*/skin=modarin-orange/;t;}' ~/.config/mc/ini
+
+# nvim
+install_if_needed neovim nvim
+ln -sf $PWD/configs/nvim ~/.config/nvim
