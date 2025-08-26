@@ -44,8 +44,11 @@ fi
 install_if_needed mc
 mkdir -p ~/.local/share/mc/skins/
 ln -sf $PWD/configs/modarin-orange.ini ~/.local/share/mc/skins/modarin-orange.ini
-sed -i '/^\[Midnight-Commander\]/,/^\[/{s/^\s*skin\s*=.*/skin=modarin-orange/;}' ~/.config/mc/ini
+ln -sf $PWD/configs/mc.ini ~/.config/mc/ini
+#sed -i '/^\[Midnight-Commander\]/,/^\[/{s/^\s*skin\s*=.*/skin=modarin-orange/;}' ~/.config/mc/ini
 
 # nvim
 install_if_needed neovim nvim
 ln -sf $PWD/configs/nvim ~/.config/nvim
+
+ln -sf $PWD/configs/starship.toml ~/.config/starship.toml
