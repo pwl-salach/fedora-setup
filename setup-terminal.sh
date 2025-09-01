@@ -6,7 +6,7 @@ install_if_needed() {
   fi
   echo "Ensuring $pck is installed"
   if which $exec_pck &>/dev/null; then
-    echo "$exec_pck is already installed"
+    echo "$exec_pck is already available"
     return
   fi
   echo "${pck} not installed"
@@ -44,11 +44,24 @@ fi
 install_if_needed mc
 mkdir -p ~/.local/share/mc/skins/
 ln -sf $PWD/configs/modarin-orange.ini ~/.local/share/mc/skins/modarin-orange.ini
+mkdir -p ~/.config/mc/
 ln -sf $PWD/configs/mc.ini ~/.config/mc/ini
+ln -sf $PWD/configs/mc.ext.ini ~/.config/mc/mc.ext.ini
 #sed -i '/^\[Midnight-Commander\]/,/^\[/{s/^\s*skin\s*=.*/skin=modarin-orange/;}' ~/.config/mc/ini
+
+install_if_needed ImageMagick identify
+install_if_needed img2sixel
 
 # nvim
 install_if_needed neovim nvim
-ln -sf $PWD/configs/nvim ~/.config/nvim
-
+ln -sfn $PWD/configs/nvim ~/.config/nvim
 ln -sf $PWD/configs/starship.toml ~/.config/starship.toml
+
+echo 123 | grep -oP "\d+" >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  grep "ggrep" ~/.zshenv >/dev/null
+  if [ $? -ne 0 ]; then
+    echo "alias grep='ggrep'" >>~/.zshenv
+    echo "Added alias for ggrep"
+  fi
+fi
