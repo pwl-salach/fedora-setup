@@ -8,6 +8,7 @@ wezterm.on("gui-startup", function(cmd)
 	window:gui_window():maximize()
 end)
 
+local is_macos = wezterm.target_triple:find("darwin") ~= nil
 local direction_keys = {
 	h = "Left",
 	j = "Down",
@@ -19,20 +20,20 @@ local function split_nav(key)
 	return {
 		key = key,
 		mods = "CTRL",
-		action = wezterm.action_callback(function(win, pane)
-			if pane:Get_users_vars().IS_NVIM == "true" then
-				-- pass the keys through to vim/nvim
-				win:perform_action({
-					SendKey = { key = key, mods = "CTRL" },
-				}, pane)
-			else
-				win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-			end
-		end),
+		action = wezterm.action.ActivatePaneDirection(direction_keys[key]),
+
+		-- action = wezterm.action_callback(function(win, pane)
+		-- if pane:get_users_vars().IS_NVIM == "true" then
+		-- -- pass the keys through to vim/nvim
+		-- win:perform_action(wezterm.action.SendKey({ key = key, mods = "CTRL" }), pane)
+		-- else
+		-- win:perform_action(wezterm.action.ActivatePaneDirection(direction_keys[key]), pane)
+		-- end
+		-- end),
 	}
 end
 
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
+config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
 config.keys = {
 	{
@@ -131,4 +132,26 @@ config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 } -- optional
 config.font_size = 12
 config.term = "xterm-256color"
 config.color_scheme = "GruvboxDarkHard"
+config.colors = {
+	tab_bar = {
+		background = "#282828", -- tmux status bg
+
+		active_tab = {
+			bg_color = "#d65d0e", -- Gruvbox orange
+			fg_color = "#fbf1c7", -- light fg
+			intensity = "Bold",
+		},
+
+		inactive_tab = {
+			bg_color = "#3c3836",
+			fg_color = "#a89984",
+		},
+	},
+}
+config.use_fancy_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = false
+wezterm.on("format-tab-title", function(tab)
+	return "  " .. (tab.tab_index + 1) .. ": " .. tab.active_pane.title .. "  "
+end)
 return config
