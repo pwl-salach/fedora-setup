@@ -22,6 +22,7 @@ install_if_needed alacritty
 mkdir -p ~/.config/alacritty/
 ln -sf $PWD/configs/alacritty.toml ~/.config/alacritty/alacritty.toml
 ln -sf $PWD/configs/.tmux.conf ~/.tmux.conf
+ln -sf $PWD/configs/.wezterm.lua ~/.wezterm.lua
 
 VAR_LINE="export SETUP_REPO_PATH=\"$PWD\""
 if [ -f "$HOME/.bash_profile" ]; then
