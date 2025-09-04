@@ -45,6 +45,8 @@ fi
 install_if_needed mc
 mkdir -p ~/.local/share/mc/skins/
 ln -sf $PWD/configs/modarin-orange.ini ~/.local/share/mc/skins/modarin-orange.ini
+mkdir -p ~/.local/bin/
+ln -sf $PWD/mc-show-image.sh ~/.local/bin/mc-show-image.sh
 mkdir -p ~/.config/mc/
 ln -sf $PWD/configs/mc.ini ~/.config/mc/ini
 ln -sf $PWD/configs/mc.ext.ini ~/.config/mc/mc.ext.ini
