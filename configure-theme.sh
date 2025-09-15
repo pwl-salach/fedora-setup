@@ -7,20 +7,23 @@ cd $MAIN_WORKDIR/external
 sudo dnf install -y gnome-tweaks gnome-themes-extra sassc gtk-murrine-engine gnome-shell-extension-user-theme
 
 # color theme
-git clone https://github.com/vinceliuice/Colloid-gtk-theme.git
-cd Colloid-gtk-theme
-./install.sh --libadwaita --theme orange --color dark --tweaks black rimless
+git clone https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme.git
+cd Gruvbox-GTK-Theme/themes/
+./install.sh --theme orange --color dark --libadwaita --tweaks medium float outline
+
+# icon theme
+git clone https://github.com/SylEleuth/gruvbox-plus-icon-pack.git
+cd gruvbox-plus-icon-pack
+cp -r Gruvbox-Plus-Dark ~/.local/share/icons
+cd scripts
+chmod +x folders-color-chooser
+./folders-color-chooser --color=pumpkin
 
 cd $MAIN_WORKDIR
 rm -rf $MAIN_WORKDIR/external
 
-# icon theme
-wget -qO- https://git.io/papirus-icon-theme-install | env DESTDIR="$HOME/.icons" sh
-wget -qO- https://git.io/papirus-folders-install | env PREFIX=$HOME/.local sh
-papirus-folders -C deeporange --theme Papirus-Dark
-
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
 # apply settings
-gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-gsettings set org.gnome.shell.extensions.user-theme name 'Colloid-Orange-Dark-Dracula'
+gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Orange-Dark-Medium'
+gsettings set org.gnome.shell.extensions.user-theme name 'Gruvbox-Orange-Dark-Medium'
+gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Plus-Dark'
